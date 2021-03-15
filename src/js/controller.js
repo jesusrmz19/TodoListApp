@@ -21,12 +21,12 @@ const controlAddTodo = function(){
   if (!todoInput.value.trim()) return;
   const todo = inputView.getTodo();
   model.addTodo(todo);
-  todoView.render(model.state.todolist);
+  todoView.render(model.state.todo);
 }
 
 const controlDeleteTodo = function(id){
   model.deleteTodo(id);
-  todoView.render(model.state.todolist);
+  todoView.renderAll(model.state.todolist);
 }
 
 const controlList = function() {
@@ -35,8 +35,8 @@ const controlList = function() {
 
 const controlUpdateCheck = function(checked, id){
   model.updateTodo(checked, id);
-  todoView.render(model.state.todolist);
 }
+
 
 
 const init = function() {

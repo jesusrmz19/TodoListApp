@@ -6,15 +6,15 @@ export default class View {
     // if (!data || (Array.isArray(data) && data.length === 0))
     //   return this.renderError();
     this._data = data;
-    const markup = this._generateAllMarkup();
-    this._clear();
+    const markup = this._generateSingleMarkup();
     this._parentElement.insertAdjacentHTML('beforeend', markup);
   }
 
   renderAll(data){
     this._data = data;
     const markup = this._generateAllMarkup();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.innerHTML = '';
+    this._parentElement.insertAdjacentHTML('beforeend', markup);
   }
 
   _clear() {

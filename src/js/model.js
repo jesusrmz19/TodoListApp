@@ -24,7 +24,7 @@ export const addTodo = function(todo) {
         checked: false
     };
     state.todolist.push(state.todo);
-    // persistTodolist();
+    persistTodolist();
 };
 
 export const deleteTodo = function(id) {
@@ -33,10 +33,9 @@ export const deleteTodo = function(id) {
 }
 
 export const updateTodo = function(checked, id) {
-    console.log(checked);
     const index = state.todolist.findIndex(el => el.id === id.slice(5));
     state.todolist[index].checked = checked;
-    console.log(state.todolist);
+    persistTodolist();
 }
 
 const init = function () {
