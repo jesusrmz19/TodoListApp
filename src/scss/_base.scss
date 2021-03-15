@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Proza+Libre&display=swap');
+$bg-color: #1abc9c;
+$complementary: #a530c2;
+$complementaryHover: #b759ce;
+$border: #dae1e3;
+$checked: #f9f9f9;
+$title-font: 'Patua One', cursive;
+$tasks-font: 'Proza Libre', sans-serif;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+    background-color: $bg-color;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+h1,
+input {
+    font-family: $title-font;
+    font-display: swap;
+}
+
+////////////////////////////////
+// Main App Container
+
+.app--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 25px;
+    padding-bottom: 35px;
+}

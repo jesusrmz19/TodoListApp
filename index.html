@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Personal To-do App" />
+    <meta name="twitter:title" content="Personal To-do App" />
+    <meta
+      name="twitter:description"
+      content="Personal To-do App created to practice JavaScript"
+    />
+    <meta
+      name="twitter:image"
+      content="https://todoapp.jesusrmz.com/images/thumbnail.PNG"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://todoapp.jesusrmz.com/" />
+    <meta property="og:title" content="Menu - Los Capeados" />
+    <meta
+      property="og:description"
+      content="Personal To-do App created to practice JavaScript"
+    />
+    <meta
+      property="og:image"
+      content="https://todoapp.jesusrmz.com/images/thumbnail.PNG"
+    />
+    <meta property="og:url" content="https://todoapp.jesusrmz.com/" />
+    <link rel="stylesheet" href="src/scss/main.scss" />
+    <link rel="icon" href="src/img/icon.png" />
+    <title>Todo List</title>
+    <script defer src="src/js/controller.js"></script>
+    <!--FIRE BASE-->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script> -->
+  </head>
+  <body>
+    <button class="login--btn" alt="Login Button">Login</button>
+    <div class="lgmodal lgmodal--hidden">
+      <div class="lgmodal--content">
+        <p>Log in</p>
+        <button class="login--modal--close">X</button>
+        <div class="login--modall--inputs">
+          <label for="email-login">E-mail</label>
+          <input id="email-login" />
+          <label for="email-login">Password</label>
+          <input id="password-login" />
+          <button>Login</button>
+        </div>
+      </div>
+    </div>
+    <main class="app--container" role="main">
+      <h1>To Do List 📥</h1>
+        <form class="input--container" autocomplete="off" >
+        <button class="btn btn--add" aria-label="Add Todo Button"></button>
+        <input
+          type="text"
+          name="todo"
+          class="todo--input"
+          placeholder="Add a new task"
+        />
+      </form>
+      <ul class="todo--list"></ul>
+    </main>
+    <div class="settings">
+      <button class="settings--btn" aria-label="Settings">
+        BTN
+      </button>
+      <div class="settings--modal modal settings--hidden">
+        <div class="settings--modal--colorInput">
+          <label for="color-input" class="color--label">Color: </label>
+          <input type="color" id="color-input" class="color--input" />
+        </div>
+        <div class="settings--modal--default">
+          <button class="default--btn">Back 2 Default</button>
+        </div>
+      </div>
+    </div>
+<!--     <script>
+      var firebaseConfig = {
+        apiKey: 'AIzaSyC8Cr2fVTg_T78s5FKXpGys2OqkZZ-xFc8',
+        authDomain: 'todoapp-c9580.firebaseapp.com',
+        databaseURL: 'https://todoapp-c9580-default-rtdb.firebaseio.com',
+        projectId: 'todoapp-c9580',
+        storageBucket: 'todoapp-c9580.appspot.com',
+        messagingSenderId: '1045103952573',
+        appId: '1:1045103952573:web:8f142978e78b05f0f12dd4',
+        measurementId: 'G-Q6F6HG5WMM',
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      db.settings({ timestampsInSnapshots: true });
+    </script> -->
+  </body>
+</html>

@@ -1,0 +1,16 @@
+////////////////////////////////
+// Footer
+.footer {
+    text-align: center;
+    width: 40%;
+    p,
+    a {
+      font-family: $tasks-font;
+    }
+    a {
+      color: white;
+      cursor: pointer;
+      padding: 2px 4px;
+      background-color: #000;
+    }
+  }
