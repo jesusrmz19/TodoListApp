@@ -34,37 +34,38 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script> -->
   </head>
   <body>
-    <button class="login--btn" alt="Login Button">Login</button>
-    <div class="lgmodal lgmodal--hidden">
-      <div class="lgmodal--content">
-        <p>Log in</p>
-        <button class="login--modal--close">X</button>
-        <div class="login--modall--inputs">
-          <label for="email-login">E-mail</label>
-          <input id="email-login" />
-          <label for="email-login">Password</label>
-          <input id="password-login" />
-          <button>Login</button>
+    <button class="login--btn openLogin" alt="Login Button">Login</button>
+    <div class="overlay hidden"></div>
+    <div class="login--window hidden">
+      <p class="title">Log in</p>
+      <button class="btn--remove closeLogin">X</button>
+      <form class="login--form" autocomplete="off">
+        <div class="login--input">
+          <label for="elogin" class="login--label">E-mail</label>
+          <input id="elogin" type="email" class="login--input input" />
         </div>
-      </div>
+        <div class="login--input">
+          <label for="plogin" class="login--label">Password</label>
+          <input id="plogin" type="password" class="login--input input" />
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
     </div>
     <main class="app--container" role="main">
       <h1>To Do List 📥</h1>
-        <form class="input--container" autocomplete="off" >
+      <form class="input--container" autocomplete="off">
         <button class="btn btn--add" aria-label="Add Todo Button"></button>
         <input
           type="text"
           name="todo"
-          class="todo--input"
+          class="todo--input input"
           placeholder="Add a new task"
         />
       </form>
       <ul class="todo--list"></ul>
     </main>
     <div class="settings">
-      <button class="settings--btn" aria-label="Settings">
-        BTN
-      </button>
+      <button class="settings--btn" aria-label="Settings">BTN</button>
       <div class="settings--modal modal settings--hidden">
         <div class="settings--modal--colorInput">
           <label for="color-input" class="color--label">Color: </label>
@@ -75,7 +76,7 @@
         </div>
       </div>
     </div>
-<!--     <script>
+    <!--     <script>
       var firebaseConfig = {
         apiKey: 'AIzaSyC8Cr2fVTg_T78s5FKXpGys2OqkZZ-xFc8',
         authDomain: 'todoapp-c9580.firebaseapp.com',

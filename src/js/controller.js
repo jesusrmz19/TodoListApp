@@ -3,6 +3,7 @@
 import * as model from './model.js';
 import inputView from './views/inputView.js';
 import todoView from './views/todoView.js';
+import loginView from './views/loginView.js';
 
 const loginBtn = document.querySelector('.login--btn');
 const todoInput = document.querySelector('.todo--input');
@@ -16,49 +17,46 @@ const defaultColor = '#1abc9c';
 let count = 1;
 settsColorInput.value = defaultColor;
 
-
-const controlAddTodo = function(){
+const controlAddTodo = function () {
   if (!todoInput.value.trim()) return;
   const todo = inputView.getTodo();
   model.addTodo(todo);
   todoView.render(model.state.todo);
-}
+};
 
-const controlDeleteTodo = function(id){
+const controlDeleteTodo = function (id) {
   model.deleteTodo(id);
   todoView.renderAll(model.state.todolist);
-}
+};
 
-const controlList = function() {
+const controlList = function () {
   todoView.renderAll(model.state.todolist);
-}
+};
 
-const controlUpdateCheck = function(checked, id){
+const controlUpdateCheck = function (checked, id) {
   model.updateTodo(checked, id);
-}
+};
 
-
-
-const init = function() {
-  todoView.addHanlderDelete(controlDeleteTodo)
+const init = function () {
+  todoView.addHanlderDelete(controlDeleteTodo);
   todoView.addHanlderCheck(controlUpdateCheck);
   todoView.addHandlerRender(controlList);
   inputView.addHandlerInput(controlAddTodo);
-}
+};
 init();
 
 // //////////////////////////////////////////////
 // // Render Items
 // const renderItem = function (item) {
 //   const html = `
-  // <li class="todo--item todo-${count}" data-id="${item.id}">
-  //   <input type="checkbox" class="hidden-box" id="todo-${count}" />
-  //   <label class="todo--label" for="todo-${count}">
-  //     <span class="check--box"></span>
-  //     <span class="check--text">${item.data().todoitem}</span>
-  //     <button class="btn--remove btn--${count}" data-todo="${count}" aria-label="Delete Todo Button"></button>
-  //   </label>
-  // </li>`;
+// <li class="todo--item todo-${count}" data-id="${item.id}">
+//   <input type="checkbox" class="hidden-box" id="todo-${count}" />
+//   <label class="todo--label" for="todo-${count}">
+//     <span class="check--box"></span>
+//     <span class="check--text">${item.data().todoitem}</span>
+//     <button class="btn--remove btn--${count}" data-todo="${count}" aria-label="Delete Todo Button"></button>
+//   </label>
+// </li>`;
 //   todoList.insertAdjacentHTML('afterbegin', html);
 //   const input = document.querySelector(`#todo-${count}`);
 //   if (item.data().checked) {
@@ -117,7 +115,6 @@ init();
 //   console.log('clicked?');
 //   document.querySelector('.lgmodal').classList.remove('lgmodal--hidden');
 // });
-
 
 // settsBtn.addEventListener('click', function () {
 //   settsModal.classList.toggle('settings--hidden');
