@@ -88,10 +88,12 @@
   font-family: $tasks-font;
   &--container {
     position: relative;
+    transform: all ease 0.3s;
   }
   &--input {
     width: 100%;
     position: relative;
+    transform: all ease 0.3s;
   }
   &--label {
     position: absolute;
@@ -99,16 +101,30 @@
     top: 50%;
     transform: translateY(-50%);
     left: 10px;
-    &.focused {
-      font-size: 0.75%;
-    }
+    transform: all ease 0.3s;
   }
   &--submit {
     color: white;
     background-color: #000;
     cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
   }
   *:not(:first-child):not(:last-child) {
-    margin: 15px 0;
+    margin: 20px 0;
+  }
+}
+
+.login--container.focused {
+  .login--label {
+    transform: translate(-5%, -135%);
+    font-size: 0.75em;
+    background-color: #000;
+    color: white;
+    padding: 0.5em 0.6em;
+    border-radius: 5px;
   }
 }
