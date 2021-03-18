@@ -1,21 +1,9 @@
 'use strict';
-
 import * as model from './model.js';
 import inputView from './views/inputView.js';
 import todoView from './views/todoView.js';
 import loginView from './views/loginView.js';
-
-const loginBtn = document.querySelector('.login--btn');
-const todoInput = document.querySelector('.todo--input');
-const todoList = document.querySelector('.todo--list');
-const btnAdd = document.querySelector('.btn--add');
-const settsBtn = document.querySelector('.settings--btn');
-const settsModal = document.querySelector('.settings--modal');
-const settsColorInput = document.querySelector('#color-input');
-const defaultBtn = document.querySelector('.default--btn');
-const defaultColor = '#1abc9c';
-let count = 1;
-settsColorInput.value = defaultColor;
+import signupView from './views/signupView.js';
 
 const controlAddTodo = function () {
   if (!todoInput.value.trim()) return;
@@ -37,7 +25,32 @@ const controlUpdateCheck = function (checked, id) {
   model.updateTodo(checked, id);
 };
 
+const controlLogin = function (data) {
+  // model.loginUser(data);
+  loginView.toggleOverlay();
+  console.log(data);
+};
+
+const controlSignup = function (data) {
+  signupView.toggleOverlay();
+  model.signupUser(data);
+};
+
+const controlChange = function (id) {
+  if (id === 'sulogin') {
+    loginView.toggleOverlay();
+    signupView.toggleOverlay();
+  } else {
+    signupView.toggleOverlay();
+    loginView.toggleOverlay();
+  }
+};
+
 const init = function () {
+  signupView.addHandlerChange(controlChange);
+  signupView.addHandlerSubmit(controlSignup);
+  loginView.addHandlerChange(controlChange);
+  loginView.addHandlerSubmit(controlLogin);
   todoView.addHanlderDelete(controlDeleteTodo);
   todoView.addHanlderCheck(controlUpdateCheck);
   todoView.addHandlerRender(controlList);

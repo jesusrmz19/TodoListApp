@@ -29,27 +29,62 @@
     <link rel="icon" href="src/img/icon.png" />
     <title>Todo List</title>
     <script defer src="src/js/controller.js"></script>
-    <!--FIRE BASE-->
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script> -->
   </head>
   <body>
     <button class="login--btn openLogin" alt="Login Button">Login</button>
-    <div class="overlay hidden"></div>
+    <button class="login--btn openLogin" alt="Login Button">Logout</button>
+    <div class="overlay overlay--login hidden"></div>
     <div class="login--window hidden">
       <p class="title">Log in</p>
       <button class="btn--remove closeLogin">X</button>
       <form class="login login--form" autocomplete="off">
         <div class="login--container">
           <label for="elogin" class="login--label">E-mail</label>
-          <input id="elogin" type="email" class="login--input input" />
+          <input id="elogin" type="email" class="login--input input" required />
         </div>
         <div class="login--container">
           <label for="plogin" class="login--label">Password</label>
-          <input id="plogin" type="password" class="login--input input" />
+          <input
+            id="plogin"
+            type="password"
+            class="login--input input"
+            required
+          />
         </div>
         <button type="submit" class="login--submit input">Sign In</button>
       </form>
+      <p class="login--signup">
+        Not a user? <a href="#" id="sulogin">Sign Up!</a>
+      </p>
+    </div>
+    <div class="overlay overlay--signup hidden"></div>
+    <div class="signup--window hidden">
+      <p class="title">Sign up</p>
+      <button class="btn--remove closeSignUp">X</button>
+      <form class="signup signup--form" autocomplete="off">
+        <div class="signup--container">
+          <label for="esignup" class="signup--label">E-mail</label>
+          <input
+            id="esignup"
+            type="email"
+            class="signup--input input"
+            required
+          />
+        </div>
+        <div class="signup--container">
+          <label for="psignup" class="signup--label">Password</label>
+          <input
+            id="psignup"
+            type="password"
+            class="signup--input input"
+            required
+          />
+        </div>
+        <button type="submit" class="signup--submit input">Sign Up</button>
+      </form>
+      <p class="signup--signup">
+        Already a user? <a href="#" id="lgsignup">Sign In!</a>
+      </p>
     </div>
     <main class="app--container" role="main">
       <h1>To Do List 📥</h1>
@@ -76,21 +111,21 @@
         </div>
       </div>
     </div>
-    <!--     <script>
+    <!--FIRE BASE-->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+    <script>
       var firebaseConfig = {
         apiKey: 'AIzaSyC8Cr2fVTg_T78s5FKXpGys2OqkZZ-xFc8',
         authDomain: 'todoapp-c9580.firebaseapp.com',
         databaseURL: 'https://todoapp-c9580-default-rtdb.firebaseio.com',
         projectId: 'todoapp-c9580',
-        storageBucket: 'todoapp-c9580.appspot.com',
-        messagingSenderId: '1045103952573',
-        appId: '1:1045103952573:web:8f142978e78b05f0f12dd4',
-        measurementId: 'G-Q6F6HG5WMM',
       };
-      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
       const db = firebase.firestore();
       db.settings({ timestampsInSnapshots: true });
-    </script> -->
+    </script>
   </body>
 </html>

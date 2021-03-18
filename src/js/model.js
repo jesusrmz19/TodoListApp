@@ -7,6 +7,7 @@ export const state = {
     checked: false,
   },
   todolist: [],
+  loggedIn: false,
 };
 
 const persistTodolist = function () {
@@ -39,7 +40,32 @@ export const updateTodo = function (checked, id) {
   persistTodolist();
 };
 
-const init = function () {
+export const signupUser = async function (user) {
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(
+      user.email,
+      user.pass
+    );
+    state.loggedIn = true;
+    console.log(cred);
+  } catch (err) {
+    console.error(` ⚠⚠ ${err} ⚠⚠ `);
+  }
+};
+
+/* export const loginUser = function (user) {
+  base
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then((user) => {
+      console.log('auth');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}; */
+
+export const init = function () {
   const todolist = localStorage.getItem('todolist');
   if (todolist) state.todolist = JSON.parse(todolist);
 };
