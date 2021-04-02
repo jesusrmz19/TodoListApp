@@ -6,8 +6,8 @@ import loginView from './views/loginView.js';
 import signupView from './views/signupView.js';
 
 const controlAddTodo = function () {
-  if (!todoInput.value.trim()) return;
   const todo = inputView.getTodo();
+  if (!todo.trim()) return;
   model.addTodo(todo);
   todoView.render(model.state.todo);
 };
@@ -33,6 +33,7 @@ const controlLogin = function (data) {
 
 const controlSignup = function (data) {
   signupView.toggleOverlay();
+  signupView.toggleLogout();
   model.signupUser(data);
 };
 
@@ -46,7 +47,13 @@ const controlChange = function (id) {
   }
 };
 
+const controlLogout = function () {
+  model.logoutUser();
+  signupView.toggleLogout();
+};
+
 const init = function () {
+  signupView.addHandlerLogout(controlLogout);
   signupView.addHandlerChange(controlChange);
   signupView.addHandlerSubmit(controlSignup);
   loginView.addHandlerChange(controlChange);

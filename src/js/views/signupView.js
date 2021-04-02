@@ -1,6 +1,8 @@
 class SignupView {
   constructor() {
     this._data;
+    this._btnLogout = document.querySelector('.logout');
+    this._btnLogin = document.querySelector('.openLogin');
     this._btnClose = document.querySelector('.closeSignUp');
     this._overlay = document.querySelector('.overlay--signup');
     this._window = document.querySelector('.signup--window');
@@ -10,7 +12,7 @@ class SignupView {
     this._loginSignup = document.querySelector('#lgsignup');
     this._addHandlerGeneralLogin();
   }
-  toggleOverlay(e) {
+  toggleOverlay() {
     this._overlay.classList.toggle('hidden');
     this._window.classList.toggle('hidden');
   }
@@ -23,6 +25,15 @@ class SignupView {
         ? div.classList.remove('focused')
         : div.classList.add('focused');
     }
+  }
+  toggleLogout() {
+    this._btnLogout.classList.toggle('hidden');
+  }
+  addHandlerLogout(handler) {
+    this._btnLogout.addEventListener('click', function (e) {
+      e.preventDefault();
+      handler();
+    });
   }
   addHandlerChange(handler) {
     this._loginSignup.addEventListener('click', function (e) {

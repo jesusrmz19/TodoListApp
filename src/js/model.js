@@ -53,6 +53,23 @@ export const signupUser = async function (user) {
   }
 };
 
+export const logoutUser = async function (user) {
+  try {
+    const signout = auth.signOut();
+    console.log(signout);
+    state.loggedIn = false;
+  } catch (err) {
+    console.error(` ⚠⚠ ${err} ⚠⚠ `);
+  }
+};
+
+export const loginUser = async function (user) {
+  try {
+    const cred = await auth.signInWithEmailAndPassword(user.email, user.pass);
+  } catch {
+    console.error(` ⚠⚠ ${err} ⚠⚠ `);
+  }
+};
 /* export const loginUser = function (user) {
   base
     .auth()
