@@ -4,6 +4,7 @@ import inputView from './views/inputView.js';
 import todoView from './views/todoView.js';
 import loginView from './views/loginView.js';
 import signupView from './views/signupView.js';
+import View from './views/view.js';
 
 const controlAddTodo = function () {
   const todo = inputView.getTodo();
@@ -17,8 +18,16 @@ const controlDeleteTodo = function (id) {
   todoView.renderAll(model.state.todolist);
 };
 
-const controlList = function () {
-  todoView.renderAll(model.state.todolist);
+const controlList = async function () {
+  try {
+    const user = await auth.currentUser;
+    if (user) return;
+    model.loadLocalStorage();
+    console.log(model.state.todolist);
+    todoView.renderAll(model.state.todolist);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const controlUpdateCheck = function (checked, id) {
@@ -26,9 +35,9 @@ const controlUpdateCheck = function (checked, id) {
 };
 
 const controlLogin = function (data) {
-  // model.loginUser(data);
+  model.loginUser(data);
   loginView.toggleOverlay();
-  console.log(data);
+  signupView.toggleLogout();
 };
 
 const controlSignup = function (data) {
@@ -53,6 +62,7 @@ const controlLogout = function () {
 };
 
 const init = function () {
+  todoView.addHandlerRender(controlList);
   signupView.addHandlerLogout(controlLogout);
   signupView.addHandlerChange(controlChange);
   signupView.addHandlerSubmit(controlSignup);
@@ -60,7 +70,6 @@ const init = function () {
   loginView.addHandlerSubmit(controlLogin);
   todoView.addHanlderDelete(controlDeleteTodo);
   todoView.addHanlderCheck(controlUpdateCheck);
-  todoView.addHandlerRender(controlList);
   inputView.addHandlerInput(controlAddTodo);
 };
 init();

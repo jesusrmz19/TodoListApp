@@ -14,6 +14,15 @@ const persistTodolist = function () {
   localStorage.setItem('todolist', JSON.stringify(state.todolist));
 };
 
+export const loadLocalStorage = function () {
+  const todolist = localStorage.getItem('todolist');
+  if (todolist) state.todolist = JSON.parse(todolist);
+};
+
+const clearList = function () {
+  localStorage.clear('todolist');
+};
+
 const createId = function () {
   return Date.now() + ''.slice(-10);
 };
@@ -66,29 +75,10 @@ export const logoutUser = async function (user) {
 export const loginUser = async function (user) {
   try {
     const cred = await auth.signInWithEmailAndPassword(user.email, user.pass);
+    console.log(cred);
   } catch {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
 };
-/* export const loginUser = function (user) {
-  base
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then((user) => {
-      console.log('auth');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}; */
 
-export const init = function () {
-  const todolist = localStorage.getItem('todolist');
-  if (todolist) state.todolist = JSON.parse(todolist);
-};
-init();
-
-const clearList = function () {
-  localStorage.clear('todolist');
-};
 // clearList();

@@ -1,6 +1,6 @@
 export default class View {
-  constructor(){
-      this._data;
+  constructor() {
+    this._data;
   }
   render(data) {
     // if (!data || (Array.isArray(data) && data.length === 0))
@@ -10,7 +10,7 @@ export default class View {
     this._parentElement.insertAdjacentHTML('beforeend', markup);
   }
 
-  renderAll(data){
+  renderAll(data) {
     this._data = data;
     const markup = this._generateAllMarkup();
     this._parentElement.innerHTML = '';
