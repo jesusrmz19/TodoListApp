@@ -4,17 +4,15 @@ Todo App being created for personal use.
 
 This App will use local storage and firebase to maintain the tasks and save states.
 
-You will be able to use local storage to save a local todo list.
+You will be able to use the browser local storage to save a local todo list.
 
-If you are logged in, you will be able to see your todo list accross multiple devices.
+I will have a personal login to be able to use it across multiple devices
 
 ## Updates
 
-Currently I'm rebuilding the app architecture based on the MVC (Model-View-Controller) Architecture.
+Version 1.0 is finally done!
 
-Having some issues with saving the checked state 🐞.
-
-Testing website doesn't have the latest code at the moment
+Go to the app! 👉🏼 <a href="https://todoapp.jesusrmz.com/" target="_blank">Here</a>
 
 ### Using
 
