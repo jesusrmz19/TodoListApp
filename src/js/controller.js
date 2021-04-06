@@ -6,38 +6,55 @@ import loginView from './views/loginView.js';
 import signupView from './views/signupView.js';
 import View from './views/view.js';
 
+const controlUI = function () {
+  // const user = await auth.currentUser;
+  auth.onAuthStateChanged(async function (user) {
+    if (user) {
+      todoView.toggleLoginLogout();
+      await model.getTodolist();
+      todoView.renderAll(model.state.todolist);
+    } else {
+      model.loadLocalStorage();
+      todoView.renderAll(model.state.todolist);
+    }
+  });
+};
+
 const controlAddTodo = function () {
   const todo = inputView.getTodo();
   if (!todo.trim()) return;
-  model.addTodo(todo);
-  todoView.render(model.state.todo);
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      model.addCloudTodo(todo);
+      todoView.render(model.state.todo);
+    } else {
+      model.addLocalTodo(todo);
+      todoView.render(model.state.todo);
+    }
+  });
 };
 
 const controlDeleteTodo = function (id) {
-  model.deleteTodo(id);
-  todoView.renderAll(model.state.todolist);
+  auth.onAuthStateChanged(async function (user) {
+    if (user) {
+      model.deleteCloudTodo(id);
+      await model.getTodolist();
+      todoView.renderAll(model.state.todolist);
+    } else {
+      model.deleteLocalTodo(id);
+      todoView.renderAll(model.state.todolist);
+    }
+  });
 };
 
-const controlList = async function () {
-  try {
-    const user = await auth.currentUser;
-    if (user) return;
-    model.loadLocalStorage();
-    console.log(model.state.todolist);
-    todoView.renderAll(model.state.todolist);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const controlUpdateCheck = function (checked, id) {
-  model.updateTodo(checked, id);
-};
-
-const controlLogin = function (data) {
-  model.loginUser(data);
-  loginView.toggleOverlay();
-  signupView.toggleLogout();
+const controlUpdateCheck = function (checked, fullid) {
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      model.updateCloudTodo(checked, fullid);
+    } else {
+      model.updateTodo(checked, id);
+    }
+  });
 };
 
 const controlSignup = function (data) {
@@ -56,13 +73,23 @@ const controlChange = function (id) {
   }
 };
 
+const controlLogin = async function (data) {
+  model.loginUser(data);
+  await model.getTodolist();
+  loginView.toggleOverlay();
+  todoView.toggleLoginLogout();
+  todoView.renderAll(model.state.todolist);
+};
+
 const controlLogout = function () {
   model.logoutUser();
-  signupView.toggleLogout();
+  todoView.toggleLoginLogout();
+  model.loadLocalStorage();
+  todoView.renderAll(model.state.todolist);
 };
 
 const init = function () {
-  todoView.addHandlerRender(controlList);
+  todoView.addHandlerLoad(controlUI);
   signupView.addHandlerLogout(controlLogout);
   signupView.addHandlerChange(controlChange);
   signupView.addHandlerSubmit(controlSignup);

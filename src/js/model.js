@@ -27,7 +27,7 @@ const createId = function () {
   return Date.now() + ''.slice(-10);
 };
 
-export const addTodo = function (todo) {
+export const addLocalTodo = function (todo) {
   state.todo = {
     value: todo,
     id: createId(),
@@ -37,16 +37,44 @@ export const addTodo = function (todo) {
   persistTodolist();
 };
 
-export const deleteTodo = function (id) {
+export const addCloudTodo = function (todo) {
+  state.todo = {
+    value: todo,
+    id: createId(),
+    checked: false,
+  };
+  db.collection('todolist').doc(state.todo.id).set({
+    value: state.todo.value,
+    id: state.todo.id,
+    checked: state.todo.checked,
+  });
+};
+
+export const deleteLocalTodo = function (id) {
   const index = state.todolist.findIndex((el) => el.id === id);
   state.todolist.splice(index, 1);
   persistTodolist();
+};
+
+export const deleteCloudTodo = async function (id) {
+  const todo = await db.collection('todolist').where('id', '==', id).get();
+  todo.forEach((elem) => elem.ref.delete());
 };
 
 export const updateTodo = function (checked, id) {
   const index = state.todolist.findIndex((el) => el.id === id.slice(5));
   state.todolist[index].checked = checked;
   persistTodolist();
+};
+
+export const updateCloudTodo = function (checked, fullid) {
+  const id = fullid.slice(5);
+  db.collection('todolist').doc(id).set(
+    {
+      checked: checked,
+    },
+    { merge: true }
+  );
 };
 
 export const signupUser = async function (user) {
@@ -67,6 +95,7 @@ export const logoutUser = async function (user) {
     const signout = auth.signOut();
     console.log(signout);
     state.loggedIn = false;
+    state.todolist = [];
   } catch (err) {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
@@ -80,5 +109,24 @@ export const loginUser = async function (user) {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
 };
+
+// Get data
+export const getTodolist = async function () {
+  try {
+    const data = await db.collection('todolist').get();
+    state.todolist = [];
+    data.docs.forEach((doc) => {
+      state.todolist.push(doc.data());
+    });
+  } catch (err) {
+    console.error(` ⚠⚠ ${err} ⚠⚠ `);
+  }
+};
+
+// db.collection('todolist')
+//   .get()
+//   .then((snapshot) => {
+//     console.log(snapshot.docs);
+//   });
 
 // clearList();

@@ -12,7 +12,9 @@ export default class View {
 
   renderAll(data) {
     this._data = data;
-    const markup = this._generateAllMarkup();
+    let markup;
+    if (!data) markup = '';
+    if (data) markup = this._generateAllMarkup();
     this._parentElement.innerHTML = '';
     this._parentElement.insertAdjacentHTML('beforeend', markup);
   }
