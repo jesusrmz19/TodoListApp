@@ -37,8 +37,7 @@ const controlAddTodo = function () {
 const controlDeleteTodo = function (id) {
   auth.onAuthStateChanged(async function (user) {
     if (user) {
-      model.deleteCloudTodo(id);
-      await model.getTodolist();
+      await model.deleteCloudTodo(id);
       todoView.renderAll(model.state.todolist);
     } else {
       model.deleteLocalTodo(id);
@@ -52,7 +51,7 @@ const controlUpdateCheck = function (checked, fullid) {
     if (user) {
       model.updateCloudTodo(checked, fullid);
     } else {
-      model.updateTodo(checked, id);
+      model.updateTodo(checked, fullid);
     }
   });
 };
@@ -74,15 +73,14 @@ const controlChange = function (id) {
 };
 
 const controlLogin = async function (data) {
-  model.loginUser(data);
-  await model.getTodolist();
+  await model.loginUser(data);
   loginView.toggleOverlay();
-  todoView.toggleLoginLogout();
+  await model.getTodolist();
   todoView.renderAll(model.state.todolist);
 };
 
-const controlLogout = function () {
-  model.logoutUser();
+const controlLogout = async function () {
+  await model.logoutUser();
   todoView.toggleLoginLogout();
   model.loadLocalStorage();
   todoView.renderAll(model.state.todolist);
@@ -162,7 +160,7 @@ init();
 //       todoList.querySelector(`[data-id="${change.doc.id}"]`).remove();
 //     }
 //   });
-// }); */
+// });
 
 // //////////////////////////////////////////////
 // // Event Listeners

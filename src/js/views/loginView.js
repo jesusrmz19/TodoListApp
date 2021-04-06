@@ -8,7 +8,7 @@ class LoginView {
     this._loginInputs = document.querySelectorAll('.login--input');
     this._loginForm = document.querySelector('.login--form');
     this._parentElement = document.querySelector('.login--container');
-    this._signupLogin = document.querySelector('#sulogin');
+    // this._signupLogin = document.querySelector('#sulogin');
     this._addHandlerGeneralLogin();
   }
   toggleOverlay() {
@@ -26,11 +26,11 @@ class LoginView {
     }
   }
   addHandlerChange(handler) {
-    this._signupLogin.addEventListener('click', function (e) {
-      e.preventDefault();
-      const btnId = e.target.getAttribute('id');
-      handler(btnId);
-    });
+    // this._signupLogin.addEventListener('click', function (e) {
+    //   e.preventDefault();
+    //   const btnId = e.target.getAttribute('id');
+    //   handler(btnId);
+    // });
   }
   addHandlerSubmit(handler) {
     this._loginForm.addEventListener('submit', function (e) {

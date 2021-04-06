@@ -43,6 +43,8 @@ export const addCloudTodo = function (todo) {
     id: createId(),
     checked: false,
   };
+  state.todolist.push(state.todo);
+  console.log(state.todolist);
   db.collection('todolist').doc(state.todo.id).set({
     value: state.todo.value,
     id: state.todo.id,
@@ -57,8 +59,15 @@ export const deleteLocalTodo = function (id) {
 };
 
 export const deleteCloudTodo = async function (id) {
-  const todo = await db.collection('todolist').where('id', '==', id).get();
-  todo.forEach((elem) => elem.ref.delete());
+  try {
+    const todo = await db.collection('todolist').where('id', '==', id).get();
+    todo.forEach((elem) => elem.ref.delete());
+    const index = state.todolist.findIndex((el) => el.id === id);
+    state.todolist.splice(index, 1);
+    console.log(state.todolist);
+  } catch (err) {
+    console.error(` ⚠⚠ ${err} ⚠⚠ `);
+  }
 };
 
 export const updateTodo = function (checked, id) {
@@ -68,6 +77,8 @@ export const updateTodo = function (checked, id) {
 };
 
 export const updateCloudTodo = function (checked, fullid) {
+  const index = state.todolist.findIndex((el) => el.id === fullid.slice(5));
+  state.todolist[index].checked = checked;
   const id = fullid.slice(5);
   db.collection('todolist').doc(id).set(
     {
@@ -92,10 +103,11 @@ export const signupUser = async function (user) {
 
 export const logoutUser = async function (user) {
   try {
-    const signout = auth.signOut();
-    console.log(signout);
+    auth.signOut();
+    console.log('GOODBYE');
     state.loggedIn = false;
     state.todolist = [];
+    console.log(state.todolist);
   } catch (err) {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
@@ -103,8 +115,8 @@ export const logoutUser = async function (user) {
 
 export const loginUser = async function (user) {
   try {
-    const cred = await auth.signInWithEmailAndPassword(user.email, user.pass);
-    console.log(cred);
+    await auth.signInWithEmailAndPassword(user.email, user.pass);
+    console.log(`WELCOME ${user.email}!`);
   } catch {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
@@ -118,6 +130,7 @@ export const getTodolist = async function () {
     data.docs.forEach((doc) => {
       state.todolist.push(doc.data());
     });
+    console.log(state.todolist);
   } catch (err) {
     console.error(` ⚠⚠ ${err} ⚠⚠ `);
   }
